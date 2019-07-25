@@ -1,0 +1,850 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="css/jupyter.css">
+  <link rel="stylesheet" href="css/bootstrap.css">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="styles/atom-one-dark.css">
+
+  <style scoped>
+      .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+      }
+
+      .dataframe tbody tr th {
+        vertical-align: top;
+      }
+
+      .dataframe thead th {
+        text-align: right;        
+      }
+    </style>
+
+  <title>Python Pandas!</title>
+</head>
+
+<body>
+  <div id="top" class="container">
+    <!-- Main jumbotron for a primary marketing message or call to action -->
+    <div class="jumbotron jumbotron-fluid">
+      <div class="container">
+        <h2 class="display-4">Python Pandas!</h2>
+        <p class="mt-5"><a href="http://pandas.pydata.org/">Pandas</a>&nbsp;is a data analysis Python library.
+          Started by&nbsp;<a href="http://wesmckinney.com/pages/about.html">Wes McKinney</a>&nbsp;in 2008 out
+          of a need for a powerful and flexible quantitative analysis tool, pandas has grown into one of the
+          most popular Python libraries. It has an extremely active&nbsp;<a
+            href="https://github.com/pydata/pandas/graphs/contributors">community of contributors</a>.</p>
+        <p>Pandas is built on top of two core Python libraries.</p>
+        <ul>
+          <li>NumPy&nbsp;for mathematical operations</li>
+          <li>matplotlib&nbsp;for data visualization</li>
+        </ul>
+        <p>Pandas package comes with several data structures that can be used for many different data
+          manipulation tasks.</p>
+
+      </div>
+    </div>
+
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-left">
+      <a class="navbar-brand" href><br>Pandas</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault"
+        aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link" href="#top">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#checkversion">Check Version</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#createdataframe">Create DataFrame</a>
+          </li>
+          <li class="nav-item">
+              <a class="nav-link" href="#selectdatailoc">Select using iloc</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+  </div>
+
+  <div class="container" id="checkversion">
+    <h2 class="mt-5">Check Pandas version</h2>
+    <div class="cell border-box-sizing code_cell rendered">
+      <div class="input">
+        <div class="prompt input_prompt">In&nbsp;[1]:</div>
+        <div class="inner_cell">
+          <div class="input_area">
+            <div class=" highlight hl-ipython3">
+              <pre>
+<span></span><span class="c1"># imports</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+</pre>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <div class="cell border-box-sizing code_cell rendered">
+      <div class="input">
+        <div class="prompt input_prompt">In&nbsp;[2]:</div>
+        <div class="inner_cell">
+          <div class="input_area">
+            <div class=" highlight hl-ipython3">
+              <pre><span></span><span class="n">pd</span><span class="o">.</span><span class="n">__version__</span></pre>
+            </div>
+
+          </div>
+        </div>
+      </div>
+      <div class="output_wrapper">
+        <div class="output">
+          <div class="output_area">
+            <div class="prompt output_prompt">Out[2]:</div>
+            <div class="output_text output_subarea output_execute_result">
+              <pre>&#39;0.23.4&#39;</pre>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container" id="createdataframe">
+      <h2 class="mt-5">Create DataFrame</h2>
+
+      <div class="cell border-box-sizing code_cell rendered">
+          <div class="input">
+          <div class="prompt input_prompt">In&nbsp;[24]:</div>
+          <div class="inner_cell">
+              <div class="input_area">
+          <div class=" highlight hl-ipython3">
+<pre><span></span><span class="c1"># Department table dictionary</span>
+<span class="n">dept</span><span class="o">=</span><span class="p">{</span>
+    <span class="s2">&quot;deptno&quot;</span><span class="p">:[</span><span class="mi">10</span><span class="p">,</span><span class="mi">20</span><span class="p">,</span><span class="mi">30</span><span class="p">,</span><span class="mi">40</span><span class="p">],</span>
+    <span class="s2">&quot;name&quot;</span><span class="p">:[</span><span class="s1">&#39;ACCOUNTING&#39;</span><span class="p">,</span><span class="s1">&#39;RESEARCH&#39;</span><span class="p">,</span><span class="s1">&#39;SALES&#39;</span><span class="p">,</span><span class="s1">&#39;OPERATIONS&#39;</span><span class="p">],</span>
+    <span class="s2">&quot;location&quot;</span><span class="p">:[</span><span class="s1">&#39;NEW YORK&#39;</span><span class="p">,</span><span class="s1">&#39;DALLAS&#39;</span><span class="p">,</span><span class="s1">&#39;CHICAGO&#39;</span><span class="p">,</span><span class="s1">&#39;BOSTON&#39;</span><span class="p">]</span>
+<span class="p">}</span>
+
+<span class="c1"># Employee table dictionary</span>
+<span class="n">emp</span><span class="o">=</span><span class="p">{</span>
+    <span class="s2">&quot;empno&quot;</span><span class="p">:[</span><span class="mi">7369</span><span class="p">,</span><span class="mi">7499</span><span class="p">,</span><span class="mi">7521</span><span class="p">,</span><span class="mi">7566</span><span class="p">,</span><span class="mi">7698</span><span class="p">,</span><span class="mi">7782</span><span class="p">,</span><span class="mi">7788</span><span class="p">,</span><span class="mi">7839</span><span class="p">,</span><span class="mi">7844</span><span class="p">,</span><span class="mi">7876</span><span class="p">,</span><span class="mi">7900</span><span class="p">,</span><span class="mi">7934</span><span class="p">,</span><span class="mi">7902</span><span class="p">,</span><span class="mi">7654</span><span class="p">],</span>
+    <span class="s2">&quot;name&quot;</span><span class="p">:[</span><span class="s1">&#39;SMITH&#39;</span><span class="p">,</span><span class="s1">&#39;ALLEN&#39;</span><span class="p">,</span><span class="s1">&#39;WARD&#39;</span><span class="p">,</span><span class="s1">&#39;JONES&#39;</span><span class="p">,</span><span class="s1">&#39;BLAKE&#39;</span><span class="p">,</span><span class="s1">&#39;CLARK&#39;</span><span class="p">,</span><span class="s1">&#39;SCOTT&#39;</span><span class="p">,</span><span class="s1">&#39;KING&#39;</span><span class="p">,</span><span class="s1">&#39;TURNER&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;ADAMS&#39;</span><span class="p">,</span><span class="s1">&#39;JAMES&#39;</span><span class="p">,</span><span class="s1">&#39;MILLER&#39;</span><span class="p">,</span><span class="s1">&#39;FORD&#39;</span><span class="p">,</span><span class="s1">&#39;MARTIN&#39;</span><span class="p">],</span>
+    <span class="s2">&quot;job&quot;</span><span class="p">:[</span><span class="s1">&#39;CLERK&#39;</span><span class="p">,</span><span class="s1">&#39;SALESMAN&#39;</span><span class="p">,</span><span class="s1">&#39;SALESMAN&#39;</span><span class="p">,</span><span class="s1">&#39;MANAGER&#39;</span><span class="p">,</span><span class="s1">&#39;MANAGER&#39;</span><span class="p">,</span><span class="s1">&#39;MANAGER&#39;</span><span class="p">,</span><span class="s1">&#39;ANALYST&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;PRESIDENT&#39;</span><span class="p">,</span><span class="s1">&#39;SALESMAN&#39;</span><span class="p">,</span><span class="s1">&#39;CLERK&#39;</span><span class="p">,</span><span class="s1">&#39;CLERK&#39;</span><span class="p">,</span><span class="s1">&#39;CLERK&#39;</span><span class="p">,</span><span class="s1">&#39;ANALYST&#39;</span><span class="p">,</span><span class="s1">&#39;SALESMAN&#39;</span><span class="p">],</span>
+    <span class="s2">&quot;mgr&quot;</span><span class="p">:[</span><span class="mi">7902</span><span class="p">,</span><span class="mi">7698</span><span class="p">,</span><span class="mi">7698</span><span class="p">,</span><span class="mi">7839</span><span class="p">,</span><span class="mi">7839</span><span class="p">,</span><span class="mi">7839</span><span class="p">,</span><span class="mi">7566</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">NaN</span><span class="p">,</span><span class="mi">7698</span><span class="p">,</span><span class="mi">7788</span><span class="p">,</span><span class="mi">7698</span><span class="p">,</span><span class="mi">7782</span><span class="p">,</span><span class="mi">7566</span><span class="p">,</span><span class="mi">7698</span><span class="p">],</span>
+    <span class="s2">&quot;hiredate&quot;</span><span class="p">:[</span><span class="s1">&#39;1993-06-13&#39;</span><span class="p">,</span><span class="s1">&#39;1998-08-15&#39;</span><span class="p">,</span><span class="s1">&#39;1996-03-26&#39;</span><span class="p">,</span><span class="s1">&#39;1995-10-31&#39;</span><span class="p">,</span><span class="s1">&#39;1992-06-11&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;1993-05-14&#39;</span><span class="p">,</span><span class="s1">&#39;1996-03-05&#39;</span><span class="p">,</span><span class="s1">&#39;1990-06-09&#39;</span><span class="p">,</span><span class="s1">&#39;1995-06-04&#39;</span><span class="p">,</span><span class="s1">&#39;1999-06-04&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;2000-06-23&#39;</span><span class="p">,</span><span class="s1">&#39;2000-01-21&#39;</span><span class="p">,</span><span class="s1">&#39;1997-12-05&#39;</span><span class="p">,</span><span class="s1">&#39;1998-12-05&#39;</span><span class="p">],</span>
+    <span class="s2">&quot;sal&quot;</span><span class="p">:[</span><span class="mi">800</span><span class="p">,</span><span class="mi">1600</span><span class="p">,</span><span class="mi">1250</span><span class="p">,</span><span class="mi">2975</span><span class="p">,</span><span class="mi">2850</span><span class="p">,</span><span class="mi">2450</span><span class="p">,</span><span class="mi">3000</span><span class="p">,</span><span class="mi">5000</span><span class="p">,</span><span class="mi">1500</span><span class="p">,</span><span class="mi">1100</span><span class="p">,</span><span class="mi">950</span><span class="p">,</span><span class="mi">1300</span><span class="p">,</span><span class="mi">3000</span><span class="p">,</span><span class="mi">1250</span><span class="p">],</span>
+    <span class="s2">&quot;comm&quot;</span><span class="p">:[</span><span class="mi">0</span><span class="p">,</span><span class="mi">300</span><span class="p">,</span><span class="mi">500</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">NaN</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">NaN</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">NaN</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">NaN</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">NaN</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">NaN</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">NaN</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">NaN</span><span class="p">,</span><span class="mi">1400</span><span class="p">,],</span>
+    <span class="s2">&quot;deptno&quot;</span><span class="p">:[</span><span class="mi">20</span><span class="p">,</span><span class="mi">30</span><span class="p">,</span><span class="mi">30</span><span class="p">,</span><span class="mi">20</span><span class="p">,</span><span class="mi">30</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">20</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">30</span><span class="p">,</span><span class="mi">20</span><span class="p">,</span><span class="mi">30</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">20</span><span class="p">,</span><span class="mi">30</span><span class="p">,]</span>
+<span class="p">}</span>
+
+<span class="c1"># Create dataframe </span>
+<span class="n">dfDept</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">dept</span><span class="p">)</span>
+<span class="n">dfEmp</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">emp</span><span class="p">)</span>
+</pre></div>
+          
+              </div>
+          </div>
+          </div>
+          
+          </div>
+          <div class="cell border-box-sizing code_cell rendered">
+          <div class="input">
+          <div class="prompt input_prompt">In&nbsp;[26]:</div>
+          <div class="inner_cell">
+              <div class="input_area">
+          <div class=" highlight hl-ipython3"><pre><span></span><span class="n">dfDept</span><span class="o">.</span><span class="n">head</span><span class="p">()</span></pre></div>
+          
+              </div>
+          </div>
+          </div>
+          
+          <div class="output_wrapper">
+          <div class="output">
+          
+          
+          <div class="output_area">
+          
+              <div class="prompt output_prompt">Out[26]:</div>
+          
+          
+          
+          <div class="output_html rendered_html output_subarea output_execute_result">
+          <div>
+          <table border="1" class="dataframe">
+            <thead>
+              <tr style="text-align: right;">
+                <th></th>
+                <th>deptno</th>
+                <th>name</th>
+                <th>location</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th>0</th>
+                <td>10</td>
+                <td>ACCOUNTING</td>
+                <td>NEW YORK</td>
+              </tr>
+              <tr>
+                <th>1</th>
+                <td>20</td>
+                <td>RESEARCH</td>
+                <td>DALLAS</td>
+              </tr>
+              <tr>
+                <th>2</th>
+                <td>30</td>
+                <td>SALES</td>
+                <td>CHICAGO</td>
+              </tr>
+              <tr>
+                <th>3</th>
+                <td>40</td>
+                <td>OPERATIONS</td>
+                <td>BOSTON</td>
+              </tr>
+            </tbody>
+          </table>
+          </div>
+          </div>
+          
+          </div>
+          
+          </div>
+          </div>
+          
+          </div>
+          <div class="cell border-box-sizing code_cell rendered">
+          <div class="input">
+          <div class="prompt input_prompt">In&nbsp;[28]:</div>
+          <div class="inner_cell">
+              <div class="input_area">
+          <div class=" highlight hl-ipython3"><pre><span></span><span class="n">dfEmp</span><span class="o">.</span><span class="n">head</span><span class="p">()</span></pre></div>
+          
+              </div>
+          </div>
+          </div>
+          
+          <div class="output_wrapper">
+          <div class="output">
+          
+          
+          <div class="output_area">
+          
+              <div class="prompt output_prompt">Out[28]:</div>
+          
+          
+          
+          <div class="output_html rendered_html output_subarea output_execute_result">
+          <div>
+          <table border="1" class="dataframe">
+            <thead>
+              <tr style="text-align: right;">
+                <th></th>
+                <th>empno</th>
+                <th>name</th>
+                <th>job</th>
+                <th>mgr</th>
+                <th>hiredate</th>
+                <th>sal</th>
+                <th>comm</th>
+                <th>deptno</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th>0</th>
+                <td>7369</td>
+                <td>SMITH</td>
+                <td>CLERK</td>
+                <td>7902.0</td>
+                <td>1993-06-13</td>
+                <td>800</td>
+                <td>0.0</td>
+                <td>20</td>
+              </tr>
+              <tr>
+                <th>1</th>
+                <td>7499</td>
+                <td>ALLEN</td>
+                <td>SALESMAN</td>
+                <td>7698.0</td>
+                <td>1998-08-15</td>
+                <td>1600</td>
+                <td>300.0</td>
+                <td>30</td>
+              </tr>
+              <tr>
+                <th>2</th>
+                <td>7521</td>
+                <td>WARD</td>
+                <td>SALESMAN</td>
+                <td>7698.0</td>
+                <td>1996-03-26</td>
+                <td>1250</td>
+                <td>500.0</td>
+                <td>30</td>
+              </tr>
+              <tr>
+                <th>3</th>
+                <td>7566</td>
+                <td>JONES</td>
+                <td>MANAGER</td>
+                <td>7839.0</td>
+                <td>1995-10-31</td>
+                <td>2975</td>
+                <td>NaN</td>
+                <td>20</td>
+              </tr>
+              <tr>
+                <th>4</th>
+                <td>7698</td>
+                <td>BLAKE</td>
+                <td>MANAGER</td>
+                <td>7839.0</td>
+                <td>1992-06-11</td>
+                <td>2850</td>
+                <td>NaN</td>
+                <td>30</td>
+              </tr>
+            </tbody>
+          </table>
+          </div>
+          </div>
+          
+          </div>
+          
+          </div>
+          </div>
+          
+          </div>
+                     
+  </div>
+
+  <div class="container" id="selectdatailoc">
+
+      <h2 class="mt-5">Selecting data using iloc</h2>
+ 
+    <div class="cell border-box-sizing code_cell rendered">
+      <div class="input">
+        <div class="prompt input_prompt">In&nbsp;[13]:</div>
+        <div class="inner_cell">
+          <div class="input_area">
+            <div class=" highlight hl-ipython3">
+              <pre><span></span><span class="c1"># Select name, job, sal, deptno from emp</span>
+<span class="n">dfEmp</span><span class="p">[[</span><span class="s1">&#39;name&#39;</span><span class="p">,</span><span class="s1">&#39;job&#39;</span><span class="p">,</span><span class="s1">&#39;sal&#39;</span><span class="p">,</span><span class="s1">&#39;deptno&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <div class="output_wrapper">
+        <div class="output">
+
+
+          <div class="output_area">
+
+            <div class="prompt output_prompt">Out[13]:</div>
+
+
+
+            <div class="output_html rendered_html output_subarea output_execute_result">
+              <div>
+                <table border="1" class="dataframe">
+                  <thead>
+                    <tr style="text-align: right;">
+                      <th></th>
+                      <th>name</th>
+                      <th>job</th>
+                      <th>sal</th>
+                      <th>deptno</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <th>0</th>
+                      <td>SMITH</td>
+                      <td>CLERK</td>
+                      <td>800</td>
+                      <td>20</td>
+                    </tr>
+                    <tr>
+                      <th>1</th>
+                      <td>ALLEN</td>
+                      <td>SALESMAN</td>
+                      <td>1600</td>
+                      <td>30</td>
+                    </tr>
+                    <tr>
+                      <th>2</th>
+                      <td>WARD</td>
+                      <td>SALESMAN</td>
+                      <td>1250</td>
+                      <td>30</td>
+                    </tr>
+                    <tr>
+                      <th>3</th>
+                      <td>JONES</td>
+                      <td>MANAGER</td>
+                      <td>2975</td>
+                      <td>20</td>
+                    </tr>
+                    <tr>
+                      <th>4</th>
+                      <td>BLAKE</td>
+                      <td>MANAGER</td>
+                      <td>2850</td>
+                      <td>30</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+    <div class="cell border-box-sizing code_cell rendered">
+      <div class="input">
+        <div class="prompt input_prompt">In&nbsp;[14]:</div>
+        <div class="inner_cell">
+          <div class="input_area">
+            <div class=" highlight hl-ipython3">
+<pre><span></span><span class="c1"># Read rows using iloc</span>
+<span class="n">dfEmp</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">5</span><span class="p">]</span>
+</pre>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <div class="output_wrapper">
+        <div class="output">
+
+
+          <div class="output_area">
+
+            <div class="prompt output_prompt">Out[14]:</div>
+
+
+
+            <div class="output_html rendered_html output_subarea output_execute_result">
+              <div>
+                <table border="1" class="dataframe">
+                  <thead>
+                    <tr style="text-align: right;">
+                      <th></th>
+                      <th>empno</th>
+                      <th>name</th>
+                      <th>job</th>
+                      <th>mgr</th>
+                      <th>hiredate</th>
+                      <th>sal</th>
+                      <th>comm</th>
+                      <th>deptno</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <th>0</th>
+                      <td>7369</td>
+                      <td>SMITH</td>
+                      <td>CLERK</td>
+                      <td>7902.0</td>
+                      <td>1993-06-13</td>
+                      <td>800</td>
+                      <td>0.0</td>
+                      <td>20</td>
+                    </tr>
+                    <tr>
+                      <th>1</th>
+                      <td>7499</td>
+                      <td>ALLEN</td>
+                      <td>SALESMAN</td>
+                      <td>7698.0</td>
+                      <td>1998-08-15</td>
+                      <td>1600</td>
+                      <td>300.0</td>
+                      <td>30</td>
+                    </tr>
+                    <tr>
+                      <th>2</th>
+                      <td>7521</td>
+                      <td>WARD</td>
+                      <td>SALESMAN</td>
+                      <td>7698.0</td>
+                      <td>1996-03-26</td>
+                      <td>1250</td>
+                      <td>500.0</td>
+                      <td>30</td>
+                    </tr>
+                    <tr>
+                      <th>3</th>
+                      <td>7566</td>
+                      <td>JONES</td>
+                      <td>MANAGER</td>
+                      <td>7839.0</td>
+                      <td>1995-10-31</td>
+                      <td>2975</td>
+                      <td>NaN</td>
+                      <td>20</td>
+                    </tr>
+                    <tr>
+                      <th>4</th>
+                      <td>7698</td>
+                      <td>BLAKE</td>
+                      <td>MANAGER</td>
+                      <td>7839.0</td>
+                      <td>1992-06-11</td>
+                      <td>2850</td>
+                      <td>NaN</td>
+                      <td>30</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+    <div class="cell border-box-sizing code_cell rendered">
+      <div class="input">
+        <div class="prompt input_prompt">In&nbsp;[16]:</div>
+        <div class="inner_cell">
+          <div class="input_area">
+            <div class=" highlight hl-ipython3">
+<pre><span></span><span class="c1"># Option 1</span>
+<span class="c1"># Read rows using iloc and display few columns</span>
+<span class="n">dfEmp</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="mi">5</span><span class="p">][[</span><span class="s1">&#39;name&#39;</span><span class="p">,</span><span class="s1">&#39;job&#39;</span><span class="p">,</span><span class="s1">&#39;sal&#39;</span><span class="p">,</span><span class="s1">&#39;deptno&#39;</span><span class="p">]]</span>
+</pre>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <div class="output_wrapper">
+        <div class="output">
+
+
+          <div class="output_area">
+
+            <div class="prompt output_prompt">Out[16]:</div>
+
+
+
+            <div class="output_html rendered_html output_subarea output_execute_result">
+              <div>
+                <table border="1" class="dataframe">
+                  <thead>
+                    <tr style="text-align: right;">
+                      <th></th>
+                      <th>name</th>
+                      <th>job</th>
+                      <th>sal</th>
+                      <th>deptno</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <th>1</th>
+                      <td>ALLEN</td>
+                      <td>SALESMAN</td>
+                      <td>1600</td>
+                      <td>30</td>
+                    </tr>
+                    <tr>
+                      <th>2</th>
+                      <td>WARD</td>
+                      <td>SALESMAN</td>
+                      <td>1250</td>
+                      <td>30</td>
+                    </tr>
+                    <tr>
+                      <th>3</th>
+                      <td>JONES</td>
+                      <td>MANAGER</td>
+                      <td>2975</td>
+                      <td>20</td>
+                    </tr>
+                    <tr>
+                      <th>4</th>
+                      <td>BLAKE</td>
+                      <td>MANAGER</td>
+                      <td>2850</td>
+                      <td>30</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+    <div class="cell border-box-sizing code_cell rendered">
+      <div class="input">
+        <div class="prompt input_prompt">In&nbsp;[18]:</div>
+        <div class="inner_cell">
+          <div class="input_area">
+            <div class=" highlight hl-ipython3">
+<pre><span></span><span class="c1"># Read rows using iloc and display few columns</span>
+<span class="n">dfEmp</span><span class="o">.</span><span class="n">iloc</span><span class="p">[[</span><span class="mi">1</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">8</span><span class="p">]][[</span><span class="s1">&#39;job&#39;</span><span class="p">,</span><span class="s1">&#39;deptno&#39;</span><span class="p">,</span><span class="s1">&#39;name&#39;</span><span class="p">]]</span>
+</pre>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <div class="output_wrapper">
+        <div class="output">
+
+
+          <div class="output_area">
+
+            <div class="prompt output_prompt">Out[18]:</div>
+
+
+
+            <div class="output_html rendered_html output_subarea output_execute_result">
+              <div>
+                <table border="1" class="dataframe">
+                  <thead>
+                    <tr style="text-align: right;">
+                      <th></th>
+                      <th>job</th>
+                      <th>deptno</th>
+                      <th>name</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <th>1</th>
+                      <td>SALESMAN</td>
+                      <td>30</td>
+                      <td>ALLEN</td>
+                    </tr>
+                    <tr>
+                      <th>5</th>
+                      <td>MANAGER</td>
+                      <td>10</td>
+                      <td>CLARK</td>
+                    </tr>
+                    <tr>
+                      <th>8</th>
+                      <td>SALESMAN</td>
+                      <td>30</td>
+                      <td>TURNER</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+    <div class="cell border-box-sizing code_cell rendered">
+      <div class="input">
+        <div class="prompt input_prompt">In&nbsp;[20]:</div>
+        <div class="inner_cell">
+          <div class="input_area">
+            <div class=" highlight hl-ipython3">
+<pre><span></span><span class="c1"># Option 2</span>
+<span class="c1"># Read rows 1:5 and display column name,job,sal,comm using the column Index</span>
+<span class="n">dfEmp</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="mi">5</span><span class="p">,[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">]]</span> 
+</pre>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <div class="output_wrapper">
+        <div class="output">
+
+
+          <div class="output_area">
+
+            <div class="prompt output_prompt">Out[20]:</div>
+
+
+
+            <div class="output_html rendered_html output_subarea output_execute_result">
+              <div>
+                <table border="1" class="dataframe">
+                  <thead>
+                    <tr style="text-align: right;">
+                      <th></th>
+                      <th>name</th>
+                      <th>job</th>
+                      <th>sal</th>
+                      <th>comm</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <th>1</th>
+                      <td>ALLEN</td>
+                      <td>SALESMAN</td>
+                      <td>1600</td>
+                      <td>300.0</td>
+                    </tr>
+                    <tr>
+                      <th>2</th>
+                      <td>WARD</td>
+                      <td>SALESMAN</td>
+                      <td>1250</td>
+                      <td>500.0</td>
+                    </tr>
+                    <tr>
+                      <th>3</th>
+                      <td>JONES</td>
+                      <td>MANAGER</td>
+                      <td>2975</td>
+                      <td>NaN</td>
+                    </tr>
+                    <tr>
+                      <th>4</th>
+                      <td>BLAKE</td>
+                      <td>MANAGER</td>
+                      <td>2850</td>
+                      <td>NaN</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+    <div class="cell border-box-sizing code_cell rendered">
+      <div class="input">
+        <div class="prompt input_prompt">In&nbsp;[22]:</div>
+        <div class="inner_cell">
+          <div class="input_area">
+            <div class=" highlight hl-ipython3">
+<pre><span></span><span class="c1"># Read rows 1,3,5,7,9 and display column empno,name,job  using the column Index</span>
+<span class="n">dfEmp</span><span class="o">.</span><span class="n">iloc</span><span class="p">[[</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">7</span><span class="p">,</span><span class="mi">9</span><span class="p">],[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">]]</span> 
+</pre>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <div class="output_wrapper">
+        <div class="output">
+          <div class="output_area">
+            <div class="prompt output_prompt">Out[22]:</div>
+            <div class="output_html rendered_html output_subarea output_execute_result">
+              <div>
+                <table border="1" class="dataframe">
+                  <thead>
+                    <tr style="text-align: right;">
+                      <th></th>
+                      <th>name</th>
+                      <th>job</th>
+                      <th>sal</th>
+                      <th>comm</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <th>1</th>
+                      <td>ALLEN</td>
+                      <td>SALESMAN</td>
+                      <td>1600</td>
+                      <td>300.0</td>
+                    </tr>
+                    <tr>
+                      <th>3</th>
+                      <td>JONES</td>
+                      <td>MANAGER</td>
+                      <td>2975</td>
+                      <td>NaN</td>
+                    </tr>
+                    <tr>
+                      <th>5</th>
+                      <td>CLARK</td>
+                      <td>MANAGER</td>
+                      <td>2450</td>
+                      <td>NaN</td>
+                    </tr>
+                    <tr>
+                      <th>7</th>
+                      <td>KING</td>
+                      <td>PRESIDENT</td>
+                      <td>5000</td>
+                      <td>0.0</td>
+                    </tr>
+                    <tr>
+                      <th>9</th>
+                      <td>ADAMS</td>
+                      <td>CLERK</td>
+                      <td>1100</td>
+                      <td>NaN</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+
+  <!-- Optional JavaScript -->
+  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+  <script src="/js/jquery.min.js"></script>
+  <script src="/js/bootstrap.min.js"></script>
+  <script src="/js/highlight.pack.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+
+</body>
+
+</html>
